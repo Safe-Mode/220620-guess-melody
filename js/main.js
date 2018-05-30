@@ -7,7 +7,25 @@ const Keycode = {
   }
 };
 
-const screenTemplates = document.querySelector(`#templates`).content
+const ARROWS_WRAP_HTML = `
+    <style>
+      .arrows__wrap {
+        position: absolute;
+        top: 135px;
+        left: 50%;
+        margin-left: -56px;
+      }
+      .arrows__btn {
+        background: none;
+        border: 2px solid black;
+        padding: 5px 20px;
+      }
+    </style>
+    <button class="arrows__btn"><-</button>
+    <button class="arrows__btn">-></button>`;
+
+const screenTemplates = document.querySelector(`#templates`)
+    .content
     .querySelectorAll(`.main`);
 const appEl = document.querySelector(`.app`);
 const mainEl = document.querySelector(`.main`);
@@ -18,14 +36,8 @@ const showScreen = (number) => {
   });
 };
 
-const drainNode = (node) => {
-  while (node.children.length) {
-    node.removeChild(node.children[0]);
-  }
-};
-
 const renderScreen = () => {
-  drainNode(mainEl);
+  mainEl.innerHTML = ``;
   showScreen(screenNum);
 };
 
@@ -43,51 +55,33 @@ const switchNextScreen = () => {
   }
 };
 
+const isLeftPressed = (evt) => evt.keyCode === Keycode.Arrow.LEFT || evt.target.textContent === `<-`;
+
+const isRightPressed = (evt) => evt.keyCode === Keycode.Arrow.RIGHT || evt.target.textContent === `->`;
+
+const switchScreen = (evt) => {
+  if (isLeftPressed(evt)) {
+    switchPrevScreen();
+  } else if (isRightPressed(evt)) {
+    switchNextScreen();
+  }
+};
+
 let screenNum = 0;
 
 showScreen(screenNum);
 
 document.addEventListener(`keydown`, (evt) => {
-  switch (evt.keyCode) {
-    case Keycode.Arrow.LEFT:
-      switchPrevScreen();
-      break;
-    case Keycode.Arrow.RIGHT:
-      switchNextScreen();
-  }
+  switchScreen(evt);
 });
-
-const arrowsWrapHTML = `
-    <style>
-      .arrows__wrap {
-        position: absolute;
-        top: 135px;
-        left: 50%;
-        margin-left: -56px;
-      }
-      .arrows__btn {
-        background: none;
-        border: 2px solid black;
-        padding: 5px 20px;
-      }
-    </style>
-    <button class="arrows__btn"><-</button>
-    <button class="arrows__btn">-></button>`;
 
 const arrowsWrapEl = document.createElement(`div`);
 
 arrowsWrapEl.classList.add(`arrows__wrap`);
-arrowsWrapEl.innerHTML = arrowsWrapHTML;
+arrowsWrapEl.innerHTML = ARROWS_WRAP_HTML;
 appEl.appendChild(arrowsWrapEl);
 
 arrowsWrapEl.addEventListener(`click`, (evt) => {
   evt.preventDefault();
-
-  switch (evt.target.textContent) {
-    case `<-`:
-      switchPrevScreen();
-      break;
-    case `->`:
-      switchNextScreen();
-  }
+  switchScreen(evt);
 });
