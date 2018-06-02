@@ -7,23 +7,6 @@ const Keycode = {
   }
 };
 
-const ARROWS_WRAP_HTML = `
-    <style>
-      .arrows__wrap {
-        position: absolute;
-        top: 135px;
-        left: 50%;
-        margin-left: -56px;
-      }
-      .arrows__btn {
-        background: none;
-        border: 2px solid black;
-        padding: 5px 20px;
-      }
-    </style>
-    <button class="arrows__btn"><-</button>
-    <button class="arrows__btn">-></button>`;
-
 const screenTemplates = document.querySelector(`#templates`)
     .content
     .querySelectorAll(`.main`);
@@ -76,9 +59,25 @@ document.addEventListener(`keydown`, (evt) => {
 });
 
 const arrowsWrapEl = document.createElement(`div`);
+const arrowsWrapHTML = `
+    <style>
+      .arrows__wrap {
+        position: absolute;
+        top: 135px;
+        left: 50%;
+        margin-left: -56px;
+      }
+      .arrows__btn {
+        background: none;
+        border: 2px solid black;
+        padding: 5px 20px;
+      }
+    </style>
+    <button class="arrows__btn"><-</button>
+    <button class="arrows__btn">-></button>`;
 
 arrowsWrapEl.classList.add(`arrows__wrap`);
-arrowsWrapEl.innerHTML = ARROWS_WRAP_HTML;
+arrowsWrapEl.innerHTML = arrowsWrapHTML;
 appEl.appendChild(arrowsWrapEl);
 
 arrowsWrapEl.addEventListener(`click`, (evt) => {
