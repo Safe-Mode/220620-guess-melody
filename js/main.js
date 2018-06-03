@@ -1,4 +1,4 @@
-'use strict';
+import getElementFromTemplate from './get-element-from-template.js';
 
 const Keycode = {
   Arrow: {
