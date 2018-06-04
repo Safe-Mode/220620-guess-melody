@@ -1,6 +1,7 @@
 import getElementFromTemplate from './get-element-from-template.js';
 import renderScreen from './render-screen.js';
 import resultScreen from './result-win.js';
+import welcomeScreen from './welcome.js';
 
 const markup = `
   <section class="main main--level main--level-genre">
@@ -97,6 +98,7 @@ renderScreen(genreScreen);
 const sendBtnEl = document.querySelector(`.genre-answer-send`);
 const answersEl = document.querySelectorAll(`input[name="answer"]`);
 const genreEl = document.querySelector(`.genre`);
+const playAgainEl = document.querySelector(`.play-again`);
 
 const toggleSendBtnState = () => {
   for (let i = 0; i < answersEl.length; i++) {
@@ -120,6 +122,11 @@ genreEl.addEventListener(`change`, (evt) => {
 sendBtnEl.addEventListener(`click`, (evt) => {
   evt.preventDefault();
   renderScreen(resultScreen);
+});
+
+playAgainEl.addEventListener(`click`, (evt) => {
+  evt.preventDefault();
+  renderScreen(welcomeScreen);
 });
 
 export default genreScreen;

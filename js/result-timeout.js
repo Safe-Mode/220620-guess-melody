@@ -1,4 +1,6 @@
 import getElementFromTemplate from './get-element-from-template.js';
+import renderScreen from './render-screen.js';
+import welcomeScreen from './welcome.js';
 
 const markup = `
   <section class="main main--result">
@@ -10,4 +12,15 @@ const markup = `
   </section>
 `;
 
-export default getElementFromTemplate(markup);
+const resultScreen = getElementFromTemplate(markup);
+
+renderScreen(resultScreen);
+
+const replayBtnEl = document.querySelector(`.main-replay`);
+
+replayBtnEl.addEventListener(`click`, (evt) => {
+  evt.preventDefault();
+  renderScreen(welcomeScreen);
+});
+
+export default resultScreen;

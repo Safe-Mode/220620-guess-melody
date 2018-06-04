@@ -25,11 +25,4 @@ playBtnEl.addEventListener(`click`, (evt) => {
   renderScreen(artistScreen);
 });
 
-playBtnEl.addEventListener(`keydown`, (evt) => {
-  if (evt.keyCode === `13`) {
-    evt.preventDefault();
-    renderScreen(artistScreen);
-  }
-});
-
 export default welcomeScreen;

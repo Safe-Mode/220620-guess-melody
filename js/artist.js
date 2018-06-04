@@ -1,6 +1,7 @@
 import getElementFromTemplate from './get-element-from-template.js';
 import renderScreen from './render-screen.js';
 import genreScreen from './genre.js';
+import welcomeScreen from './welcome.js';
 
 const markup = `
   <section class="main main--level main--level-artist">
@@ -72,11 +73,17 @@ const artistScreen = getElementFromTemplate(markup);
 renderScreen(artistScreen);
 
 const answerList = document.querySelector(`.main-list`);
+const playAgainEl = document.querySelector(`.play-again`);
 
 answerList.addEventListener(`change`, (evt) => {
   if (evt.target.classList.contains(`main-answer-r`)) {
     renderScreen(genreScreen);
   }
+});
+
+playAgainEl.addEventListener(`click`, (evt) => {
+  evt.preventDefault();
+  renderScreen(welcomeScreen);
 });
 
 export default artistScreen;
