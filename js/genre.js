@@ -95,6 +95,27 @@ const genreScreen = getElementFromTemplate(markup);
 renderScreen(genreScreen);
 
 const sendBtnEl = document.querySelector(`.genre-answer-send`);
+const answersEl = document.querySelectorAll(`input[name="answer"]`);
+const genreEl = document.querySelector(`.genre`);
+
+const toggleSendBtnState = () => {
+  for (let i = 0; i < answersEl.length; i++) {
+    if (answersEl[i].checked) {
+      sendBtnEl.disabled = false;
+      return;
+    }
+  }
+
+  sendBtnEl.disabled = true;
+};
+
+toggleSendBtnState();
+
+genreEl.addEventListener(`change`, (evt) => {
+  if (evt.target.name === `answer`) {
+    toggleSendBtnState();
+  }
+});
 
 sendBtnEl.addEventListener(`click`, (evt) => {
   evt.preventDefault();
