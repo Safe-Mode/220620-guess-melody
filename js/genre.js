@@ -1,6 +1,9 @@
+import {getRandomInt} from './util.js';
 import getElementFromTemplate from './get-element-from-template.js';
 import renderScreen from './render-screen.js';
-import resultScreen from './result-win.js';
+import winScreen from './result-win.js';
+import timeoutScreen from './result-timeout.js';
+import tryendScreen from './result-tryend.js';
 import welcomeScreen from './welcome.js';
 
 const markup = `
@@ -95,6 +98,8 @@ const genreScreen = getElementFromTemplate(markup);
 
 renderScreen(genreScreen);
 
+const results = [winScreen, timeoutScreen, tryendScreen];
+const resultScreen = results[getRandomInt(0, results.length)];
 const sendBtnEl = document.querySelector(`.genre-answer-send`);
 const answersEl = document.querySelectorAll(`input[name="answer"]`);
 const genreEl = document.querySelector(`.genre`);
