@@ -1,6 +1,6 @@
-const mainEl = document.querySelector(`.main`);
+const appEl = document.querySelector(`.app`);
 
 export default (screen) => {
-  mainEl.innerHTML = ``;
-  mainEl.appendChild(screen);
+  const mainEl = appEl.querySelector(`.main`);
+  appEl.replaceChild(screen, mainEl);
 };
