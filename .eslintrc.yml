@@ -6,5 +6,11 @@ env:
   es6: true
   browser: true
   commonjs: true
+  mocha: true
+
+overrides:
+  files: 'gulpfile.js'
+  parserOptions:
+    sourceType: 'script'
 
 extends: 'htmlacademy/es6'
