@@ -1,5 +1,4 @@
-import {deepFreeze} from './util.js';
-import {getRandomInt} from './util.js';
+import {deepFreeze, getRandomInt} from './util.js';
 
 const MAX_ANSWER_TIME = 30;
 const ANSWERS_LENGTH = 10;

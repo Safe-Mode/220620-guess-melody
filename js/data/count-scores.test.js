@@ -6,7 +6,7 @@ const getAnswersCopy = (array) => {
   const answersCopy = [];
 
   array.forEach((it) => {
-    answersCopy.push(Object.assign([], it));
+    answersCopy.push(Object.assign({}, it));
   });
 
   return answersCopy;
@@ -21,23 +21,25 @@ describe(`Check scores counter`, () => {
   });
 
   it(`Should return 10, if player has answered all questions right, but not quickly`, () => {
-    const answersCopy = getAnswersCopy(getAnswers());
+    const answersCopy = getAnswersCopy(getAnswers())
+        .map((it) => {
+          it.value = true;
+          it.time = 30;
 
-    answersCopy.forEach((it) => {
-      it.value = true;
-      it.time = 30;
-    });
+          return it;
+        });
 
     assert.equal(countScores(answersCopy), 10);
   });
 
   it(`Should return 20, if player has answered all questions quickly`, () => {
-    const answersCopy = getAnswersCopy(getAnswers());
+    const answersCopy = getAnswersCopy(getAnswers())
+        .map((it) => {
+          it.value = true;
+          it.time = 5;
 
-    answersCopy.forEach((it) => {
-      it.value = true;
-      it.time = 5;
-    });
+          return it;
+        });
 
     assert.equal(countScores(answersCopy), 20);
   });
