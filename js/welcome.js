@@ -3,8 +3,8 @@ import renderScreen from './render-screen.js';
 import goOverArtistLvl from './artist.js';
 
 export default () => {
-  const markup = `
-    <section class="main main--welcome">
+  const markup =
+    `<section class="main main--welcome">
       <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
       <button class="main-play">Начать игру</button>
       <h2 class="title main-title">Правила игры</h2>
@@ -13,8 +13,7 @@ export default () => {
         Ошибиться можно 3 раза.<br>
         Удачи!
       </p>
-    </section>
-  `;
+    </section>`;
   const welcomeScreen = getElementFromTemplate(markup);
 
   renderScreen(welcomeScreen);

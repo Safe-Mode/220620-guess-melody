@@ -1,6 +1,12 @@
-const element = document.createElement(`div`);
-
 export default (template) => {
+  const element = document.createElement(`div`);
+  const fragment = document.createDocumentFragment();
+
   element.innerHTML = template;
-  return element.firstElementChild;
+
+  for (let i = 0; i < element.children.length; i++) {
+    fragment.appendChild(element.children[i].cloneNode(true));
+  }
+
+  return fragment;
 };
