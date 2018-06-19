@@ -1,7 +1,7 @@
 import getElementFromTemplate from './get-element-from-template.js';
 import goOverArtist from './artist.js';
 import gameData from './data/game-data.js';
-import {initialState} from './data/data.js';
+import {INITIAL_STATE} from './data/data.js';
 
 const markup =
   `<section class="main main--welcome">
@@ -19,7 +19,7 @@ const playBtnEl = welcomeScreen.querySelector(`.main-play`);
 
 playBtnEl.addEventListener(`click`, (evt) => {
   evt.preventDefault();
-  goOverArtist(gameData, initialState);
+  goOverArtist(gameData, INITIAL_STATE);
 });
 
 export default welcomeScreen;

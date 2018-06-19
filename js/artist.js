@@ -7,55 +7,51 @@ import initData from './data/game-data.js';
 
 export default (questions, state) => {
   const markup =
-    `<div class="main-wrap">
-      <h2 class="title main-title">${questions[state.question].title}</h2>
-      <div class="player-wrapper">
-        <div class="player">
-          <audio src=${questions[state.question].audio}></audio>
-          <button class="player-control player-control--pause"></button>
-          <div class="player-track">
-            <span class="player-status"></span>
+    `<section class="main main--level main--level-artist">
+      <div class="main-wrap">
+        <h2 class="title main-title">${questions[state.question].title}</h2>
+        <div class="player-wrapper">
+          <div class="player">
+            <audio src=${questions[state.question].audio}></audio>
+            <button class="player-control player-control--pause"></button>
+            <div class="player-track">
+              <span class="player-status"></span>
+            </div>
           </div>
         </div>
+        <form class="main-list">
+          <div class="main-answer-wrapper">
+            <input class="main-answer-r" type="radio" id="answer-1" name="answer" value=\"${questions[state.question].options[0]}\">
+            <label class="main-answer" for="answer-1">
+              <img class="main-answer-preview" src="http://placehold.it/134x134"
+                  alt="${questions[state.question].options[0]}" width="134" height="134">
+              ${questions[state.question].options[0]}
+            </label>
+          </div>
+
+          <div class="main-answer-wrapper">
+            <input class="main-answer-r" type="radio" id="answer-2" name="answer" value=\"${questions[state.question].options[1]}\">
+            <label class="main-answer" for="answer-2">
+              <img class="main-answer-preview" src="http://placehold.it/134x134"
+                  alt="${questions[state.question].options[1]}" width="134" height="134">
+              ${questions[state.question].options[1]}
+            </label>
+          </div>
+
+          <div class="main-answer-wrapper">
+            <input class="main-answer-r" type="radio" id="answer-3" name="answer" value=\"${questions[state.question].options[2]}\">
+            <label class="main-answer" for="answer-3">
+              <img class="main-answer-preview" src="http://placehold.it/134x134"
+                  alt="${questions[state.question].options[2]}" width="134" height="134">
+              ${questions[state.question].options[2]}
+            </label>
+          </div>
+        </form>
       </div>
-      <form class="main-list">
-        <div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-1" name="answer" value=\"${questions[state.question].options[0]}\">
-          <label class="main-answer" for="answer-1">
-            <img class="main-answer-preview" src="http://placehold.it/134x134"
-                 alt="${questions[state.question].options[0]}" width="134" height="134">
-            ${questions[state.question].options[0]}
-          </label>
-        </div>
-
-        <div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-2" name="answer" value=\"${questions[state.question].options[1]}\">
-          <label class="main-answer" for="answer-2">
-            <img class="main-answer-preview" src="http://placehold.it/134x134"
-                 alt="${questions[state.question].options[1]}" width="134" height="134">
-            ${questions[state.question].options[1]}
-          </label>
-        </div>
-
-        <div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-3" name="answer" value=\"${questions[state.question].options[2]}\">
-          <label class="main-answer" for="answer-3">
-            <img class="main-answer-preview" src="http://placehold.it/134x134"
-                 alt="${questions[state.question].options[2]}" width="134" height="134">
-            ${questions[state.question].options[2]}
-          </label>
-        </div>
-      </form>
-    </div>`;
-  const artistScreen = getElementFromTemplate(markup);
-  const artistMain = document.createElement(`section`);
-
-  artistMain.className = `main main--level main--level-artist`;
-  artistMain.appendChild(headerEl.cloneNode(true));
-  artistMain.appendChild(artistScreen);
-
+    </section>`;
+  const artistMain = getElementFromTemplate(markup);
   const answerList = artistMain.querySelector(`.main-list`);
-  const playAgainEl = artistMain.querySelector(`.play-again`);
+  const playAgainEl = headerEl.querySelector(`.play-again`);
 
   answerList.addEventListener(`change`, (evt) => {
     if (evt.target.classList.contains(`main-answer-r`)) {
@@ -69,5 +65,6 @@ export default (questions, state) => {
     render(initialScreen);
   });
 
+  render(headerEl);
   render(artistMain);
 };
