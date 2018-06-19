@@ -10,82 +10,79 @@ import gameData from './data/game-data.js';
 
 export default (questions, state) => {
   const markup =
-    `<div class="main-wrap">
-      <h2 class="title">${questions[state.question].title}</h2>
-      <form class="genre">
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio src=${questions[state.question].options[0]}></audio>
-              <button class="player-control player-control--pause"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
+    `<section>
+      <div class="main-wrap">
+        <h2 class="title">${questions[state.question].title}</h2>
+        <form class="genre">
+          <div class="genre-answer">
+            <div class="player-wrapper">
+              <div class="player">
+                <audio src=${questions[state.question].options[0]}></audio>
+                <button class="player-control player-control--pause"></button>
+                <div class="player-track">
+                  <span class="player-status"></span>
+                </div>
               </div>
             </div>
+            <input type="checkbox" name="answer" value="answer-1" id="a-1">
+            <label class="genre-answer-check" for="a-1"></label>
           </div>
-          <input type="checkbox" name="answer" value="answer-1" id="a-1">
-          <label class="genre-answer-check" for="a-1"></label>
-        </div>
 
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio src=${questions[state.question].options[1]}></audio>
-              <button class="player-control player-control--play"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
+          <div class="genre-answer">
+            <div class="player-wrapper">
+              <div class="player">
+                <audio src=${questions[state.question].options[1]}></audio>
+                <button class="player-control player-control--play"></button>
+                <div class="player-track">
+                  <span class="player-status"></span>
+                </div>
               </div>
             </div>
+            <input type="checkbox" name="answer" value="answer-1" id="a-2">
+            <label class="genre-answer-check" for="a-2"></label>
           </div>
-          <input type="checkbox" name="answer" value="answer-1" id="a-2">
-          <label class="genre-answer-check" for="a-2"></label>
-        </div>
 
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio src=${questions[state.question].options[2]}></audio>
-              <button class="player-control player-control--play"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
+          <div class="genre-answer">
+            <div class="player-wrapper">
+              <div class="player">
+                <audio src=${questions[state.question].options[2]}></audio>
+                <button class="player-control player-control--play"></button>
+                <div class="player-track">
+                  <span class="player-status"></span>
+                </div>
               </div>
             </div>
+            <input type="checkbox" name="answer" value="answer-1" id="a-3">
+            <label class="genre-answer-check" for="a-3"></label>
           </div>
-          <input type="checkbox" name="answer" value="answer-1" id="a-3">
-          <label class="genre-answer-check" for="a-3"></label>
-        </div>
 
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio src=${questions[state.question].options[3]}></audio>
-              <button class="player-control player-control--play"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
+          <div class="genre-answer">
+            <div class="player-wrapper">
+              <div class="player">
+                <audio src=${questions[state.question].options[3]}></audio>
+                <button class="player-control player-control--play"></button>
+                <div class="player-track">
+                  <span class="player-status"></span>
+                </div>
               </div>
             </div>
+            <input type="checkbox" name="answer" value="answer-1" id="a-4">
+            <label class="genre-answer-check" for="a-4"></label>
           </div>
-          <input type="checkbox" name="answer" value="answer-1" id="a-4">
-          <label class="genre-answer-check" for="a-4"></label>
-        </div>
 
-        <button class="genre-answer-send" type="submit">Ответить</button>
-      </form>
-    </div>`;
+          <button class="genre-answer-send" type="submit">Ответить</button>
+        </form>
+      </div>
+    </section>`;
 
-  const genreScreen = getElementFromTemplate(markup);
-  const genreMain = document.createElement(`section`);
-
-  genreMain.className = `main main--level main--level-artist`;
-  genreMain.appendChild(headerEl.cloneNode(true));
-  genreMain.appendChild(genreScreen);
+  const genreMain = getElementFromTemplate(markup);
 
   // const results = [getResultWin, getResultTimeout, getResultTryOver];
   // const showResult = results[getRandomInt(0, results.length - 1)];
   const sendBtnEl = genreMain.querySelector(`.genre-answer-send`);
   const answersEl = genreMain.querySelectorAll(`input[name="answer"]`);
   const genreEl = genreMain.querySelector(`.genre`);
-  const playAgainEl = genreMain.querySelector(`.play-again`);
+  const playAgainEl = headerEl.querySelector(`.play-again`);
 
   const toggleSendBtnState = () => {
     for (let i = 0; i < answersEl.length; i++) {
@@ -116,5 +113,6 @@ export default (questions, state) => {
     render(initialScreen);
   });
 
+  render(headerEl);
   render(genreMain);
 };

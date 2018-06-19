@@ -4,6 +4,7 @@ import goOverGenre from './genre.js';
 import initialScreen from './welcome.js';
 import headerEl from './header.js';
 import initData from './data/game-data.js';
+import getCurrentState from './get-current-state.js';
 
 export default (questions, state) => {
   const markup =
@@ -56,7 +57,8 @@ export default (questions, state) => {
   answerList.addEventListener(`change`, (evt) => {
     if (evt.target.classList.contains(`main-answer-r`)) {
       console.log(evt.target.value);
-      goOverGenre();
+      // const currentState = getCurrentState();
+      // goOverGenre(initData, currentState);
     }
   });
 
