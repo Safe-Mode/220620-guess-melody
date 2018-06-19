@@ -1,4 +1,4 @@
-export const initialState = {
+export const INITIAL_STATE = {
   question: 0,
   notes: 3,
   time: {

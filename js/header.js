@@ -1,5 +1,5 @@
 import getElementFromTemplate from './get-element-from-template.js';
-import {initialState} from './data/data.js';
+import {INITIAL_STATE} from './data.data.js';
 
 const NOTES_MAX_COUNT = 3;
 
@@ -25,4 +25,4 @@ const headerTemplate = (state) =>
         .join(``)}
   </div>`;
 
-export default getElementFromTemplate(headerTemplate(initialState));
+export default getElementFromTemplate(headerTemplate(INITIAL_STATE));

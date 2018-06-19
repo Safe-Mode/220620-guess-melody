@@ -1,21 +1,22 @@
 import {getRandomInt} from './util.js';
 import getElementFromTemplate from './get-element-from-template.js';
-import renderScreen from './render-screen.js';
-import getResultWin from './result-win.js';
-import getResultTimeout from './result-timeout.js';
-import getResultTryOver from './result-try-over.js';
-import initApp from './welcome.js';
+import render from './render-screen.js';
+// import getResultWin from './result-win.js';
+// import getResultTimeout from './result-timeout.js';
+// import getResultTryOver from './result-try-over.js';
+import initialScreen from './welcome.js';
 import headerEl from './header.js';
+import gameData from './data/game-data.js';
 
-export default () => {
+export default (questions, state) => {
   const markup =
     `<div class="main-wrap">
-      <h2 class="title">Выберите инди-рок треки</h2>
+      <h2 class="title">${questions[state.question].title}</h2>
       <form class="genre">
         <div class="genre-answer">
           <div class="player-wrapper">
             <div class="player">
-              <audio></audio>
+              <audio src=${questions[state.question].options[0]}></audio>
               <button class="player-control player-control--pause"></button>
               <div class="player-track">
                 <span class="player-status"></span>
@@ -29,7 +30,7 @@ export default () => {
         <div class="genre-answer">
           <div class="player-wrapper">
             <div class="player">
-              <audio></audio>
+              <audio src=${questions[state.question].options[1]}></audio>
               <button class="player-control player-control--play"></button>
               <div class="player-track">
                 <span class="player-status"></span>
@@ -43,7 +44,7 @@ export default () => {
         <div class="genre-answer">
           <div class="player-wrapper">
             <div class="player">
-              <audio></audio>
+              <audio src=${questions[state.question].options[2]}></audio>
               <button class="player-control player-control--play"></button>
               <div class="player-track">
                 <span class="player-status"></span>
@@ -57,7 +58,7 @@ export default () => {
         <div class="genre-answer">
           <div class="player-wrapper">
             <div class="player">
-              <audio></audio>
+              <audio src=${questions[state.question].options[3]}></audio>
               <button class="player-control player-control--play"></button>
               <div class="player-track">
                 <span class="player-status"></span>
@@ -79,8 +80,8 @@ export default () => {
   genreMain.appendChild(headerEl.cloneNode(true));
   genreMain.appendChild(genreScreen);
 
-  const results = [getResultWin, getResultTimeout, getResultTryOver];
-  const showResult = results[getRandomInt(0, results.length - 1)];
+  // const results = [getResultWin, getResultTimeout, getResultTryOver];
+  // const showResult = results[getRandomInt(0, results.length - 1)];
   const sendBtnEl = genreMain.querySelector(`.genre-answer-send`);
   const answersEl = genreMain.querySelectorAll(`input[name="answer"]`);
   const genreEl = genreMain.querySelector(`.genre`);
@@ -107,13 +108,13 @@ export default () => {
 
   sendBtnEl.addEventListener(`click`, (evt) => {
     evt.preventDefault();
-    showResult();
+    // showResult();
   });
 
   playAgainEl.addEventListener(`click`, (evt) => {
     evt.preventDefault();
-    initApp();
+    render(initialScreen);
   });
 
-  renderScreen(genreMain);
+  render(genreMain);
 };
