@@ -3,6 +3,7 @@ import render from './render-screen.js';
 import goOverGenre from './genre.js';
 import initialScreen from './welcome.js';
 import headerEl from './header.js';
+import footerEl from './footer.js';
 import initData from './data/game-data.js';
 import getCurrentState from './get-current-state.js';
 
@@ -57,8 +58,8 @@ export default (questions, state) => {
   answerList.addEventListener(`change`, (evt) => {
     if (evt.target.classList.contains(`main-answer-r`)) {
       console.log(evt.target.value);
-      // const currentState = getCurrentState();
-      // goOverGenre(initData, currentState);
+      getCurrentState();
+      goOverGenre(initData, state);
     }
   });
 
@@ -67,6 +68,11 @@ export default (questions, state) => {
     render(initialScreen);
   });
 
-  render(headerEl);
-  render(artistMain);
+  const artistScreen = document.createDocumentFragment();
+
+  artistScreen.appendChild(headerEl);
+  artistScreen.appendChild(artistMain);
+  artistScreen.appendChild(footerEl);
+
+  render(artistScreen);
 };

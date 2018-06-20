@@ -6,11 +6,14 @@ import render from './render-screen.js';
 // import getResultTryOver from './result-try-over.js';
 import initialScreen from './welcome.js';
 import headerEl from './header.js';
+import footerEl from './footer.js';
 import gameData from './data/game-data.js';
 
 export default (questions, state) => {
+  console.log(state);
+  
   const markup =
-    `<section>
+    `<section class="main main--level main--level-genre">
       <div class="main-wrap">
         <h2 class="title">${questions[state.question].title}</h2>
         <form class="genre">
@@ -113,6 +116,11 @@ export default (questions, state) => {
     render(initialScreen);
   });
 
-  render(headerEl);
-  render(genreMain);
+  const genreScreen = document.createDocumentFragment();
+
+  genreScreen.appendChild(headerEl);
+  genreScreen.appendChild(genreMain);
+  genreScreen.appendChild(footerEl);
+
+  render(genreScreen);
 };
