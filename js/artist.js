@@ -9,6 +9,11 @@ import getCurrentState from './get-current-state.js';
 import {err} from './game.js';
 
 export default (questions, state) => {
+  state = Object.assign({}, state);
+  console.log(questions);
+  
+  console.log(state);
+  
   const markup =
     `<section class="main main--level main--level-artist">
       <div class="main-wrap">

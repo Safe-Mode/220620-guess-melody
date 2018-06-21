@@ -2,16 +2,18 @@ import {getRandomInt} from './util.js';
 import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
 import resultWinScreen from './result-win.js';
-import getResultTimeout from './result-timeout.js';
-import getResultTryOver from './result-try-over.js';
+import resultTimeoutScreen from './result-timeout.js';
+import resultTryOverScreen from './result-try-over.js';
 import initialScreen from './welcome.js';
 import getHeader from './header.js';
 import footerEl from './footer.js';
 import getCurrentState from './get-current-state.js';
 import gameData from './data/game-data.js';
+import {err} from './game.js';
+import goOverArtist from './artist.js';
 
 export default (questions, state) => {
-  console.log(state);
+  state = Object.assign({}, state);
 
   const markup =
     `<section class="main main--level main--level-genre">
@@ -81,8 +83,6 @@ export default (questions, state) => {
 
   const genreMain = getElementFromTemplate(markup);
   const headerEl = getHeader(state);
-  const results = [getResultWin, getResultTimeout, getResultTryOver];
-  const showResult = results[getRandomInt(0, results.length - 1)];
   const formEl = genreMain.querySelector(`.genre`);
   const sendBtnEl = genreMain.querySelector(`.genre-answer-send`);
   const answersEl = genreMain.querySelectorAll(`input[name="answer"]`);
@@ -111,6 +111,7 @@ export default (questions, state) => {
   formEl.addEventListener(`submit`, (evt) => {
     evt.preventDefault();
 
+    const currentState = getCurrentState();
     let answers = [];
 
     for (const answer of answersEl) {
@@ -118,11 +119,20 @@ export default (questions, state) => {
         answers.push(answer.parentElement.querySelector(`audio`).src);
       }
     }
+    
+    console.log(questions[state.question]);
 
     if (answers.every((it, i) => {
-      return it === questions[state.question].answer[i];
+      if (answers.length === questions[state.question].answer.length) {
+        return it === questions[state.question].answer[i];
+      }
+
+      return false;
     })) {
       render(resultWinScreen);
+    } else {
+      err(currentState);
+      goOverArtist(Object.assign(gameData), currentState);
     }
   });
 
