@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Сергей Дмитриев](https://up.htmlacademy.ru/ecmascript/5/user/220620).
-* Наставник: `[Андрей Фидельман](https://htmlacademy.ru/profile/id773165)`.
+* Наставник: [Андрей Фидельман](https://htmlacademy.ru/profile/id773165).
 
 ---
 

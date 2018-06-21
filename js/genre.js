@@ -5,13 +5,14 @@ import render from './render-screen.js';
 // import getResultTimeout from './result-timeout.js';
 // import getResultTryOver from './result-try-over.js';
 import initialScreen from './welcome.js';
-import headerEl from './header.js';
+import getHeader from './header.js';
 import footerEl from './footer.js';
+import getCurrentState from './get-current-state.js';
 import gameData from './data/game-data.js';
 
 export default (questions, state) => {
   console.log(state);
-  
+
   const markup =
     `<section class="main main--level main--level-genre">
       <div class="main-wrap">
@@ -79,9 +80,10 @@ export default (questions, state) => {
     </section>`;
 
   const genreMain = getElementFromTemplate(markup);
-
+  const headerEl = getHeader(state);
   // const results = [getResultWin, getResultTimeout, getResultTryOver];
   // const showResult = results[getRandomInt(0, results.length - 1)];
+  const formEl = genreMain.querySelector(`.genre`);
   const sendBtnEl = genreMain.querySelector(`.genre-answer-send`);
   const answersEl = genreMain.querySelectorAll(`input[name="answer"]`);
   const genreEl = genreMain.querySelector(`.genre`);
@@ -106,9 +108,18 @@ export default (questions, state) => {
     }
   });
 
-  sendBtnEl.addEventListener(`click`, (evt) => {
+  formEl.addEventListener(`submit`, (evt) => {
     evt.preventDefault();
-    // showResult();
+
+    let answers = [];
+
+    for (const answer of answersEl) {
+      if (answer.checked) {
+        answers.push(answer.parentElement.querySelector(`audio`).src);
+      }
+    }
+
+    console.log(answers);
   });
 
   playAgainEl.addEventListener(`click`, (evt) => {

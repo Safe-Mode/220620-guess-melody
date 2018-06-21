@@ -2,10 +2,11 @@ import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
 import goOverGenre from './genre.js';
 import initialScreen from './welcome.js';
-import headerEl from './header.js';
+import getHeader from './header.js';
 import footerEl from './footer.js';
-import initData from './data/game-data.js';
+import gameData from './data/game-data.js';
 import getCurrentState from './get-current-state.js';
+import {err} from './game.js';
 
 export default (questions, state) => {
   const markup =
@@ -53,14 +54,17 @@ export default (questions, state) => {
     </section>`;
   const artistMain = getElementFromTemplate(markup);
   const answerList = artistMain.querySelector(`.main-list`);
+  const headerEl = getHeader(state);
   const playAgainEl = headerEl.querySelector(`.play-again`);
 
-  answerList.addEventListener(`change`, (evt) => {
-    if (evt.target.classList.contains(`main-answer-r`)) {
-      console.log(evt.target.value);
-      getCurrentState();
-      goOverGenre(initData, state);
+  answerList.addEventListener(`change`, ({target}) => {
+    const currentState = getCurrentState();
+
+    if (gameData[state.question].answer !== target.value) {
+      err(currentState);
     }
+
+    goOverGenre(Object.assign(gameData), currentState);
   });
 
   playAgainEl.addEventListener(`click`, (evt) => {
