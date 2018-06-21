@@ -1,9 +1,9 @@
 import {getRandomInt} from './util.js';
 import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
-// import getResultWin from './result-win.js';
-// import getResultTimeout from './result-timeout.js';
-// import getResultTryOver from './result-try-over.js';
+import resultWinScreen from './result-win.js';
+import getResultTimeout from './result-timeout.js';
+import getResultTryOver from './result-try-over.js';
 import initialScreen from './welcome.js';
 import getHeader from './header.js';
 import footerEl from './footer.js';
@@ -81,8 +81,8 @@ export default (questions, state) => {
 
   const genreMain = getElementFromTemplate(markup);
   const headerEl = getHeader(state);
-  // const results = [getResultWin, getResultTimeout, getResultTryOver];
-  // const showResult = results[getRandomInt(0, results.length - 1)];
+  const results = [getResultWin, getResultTimeout, getResultTryOver];
+  const showResult = results[getRandomInt(0, results.length - 1)];
   const formEl = genreMain.querySelector(`.genre`);
   const sendBtnEl = genreMain.querySelector(`.genre-answer-send`);
   const answersEl = genreMain.querySelectorAll(`input[name="answer"]`);
@@ -119,7 +119,11 @@ export default (questions, state) => {
       }
     }
 
-    console.log(answers);
+    if (answers.every((it, i) => {
+      return it === questions[state.question].answer[i];
+    })) {
+      render(resultWinScreen);
+    }
   });
 
   playAgainEl.addEventListener(`click`, (evt) => {
