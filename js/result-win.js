@@ -11,7 +11,7 @@ export default (result) => {
       <div class="main-stat">За&nbsp;3&nbsp;минуты и 25&nbsp;секунд
         <br>вы&nbsp;набрали ${result.scores} баллов (${result.fast} быстрых)
         <br>совершив ${result.fails} ошибки</div>
-      <span class="main-comparison">Вы заняли ${result.playerPosition} место из ${result.rivalsCount}. Это&nbsp;лучше чем у&nbsp;${result.percent}%&nbsp;игроков</span>
+      <span class="main-comparison">Вы заняли ${result.position} место из ${result.rivalsCount}. Это&nbsp;лучше чем у&nbsp;${result.percent}%&nbsp;игроков</span>
       <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
     </section>`;
   const resultScreen = getElementFromTemplate(markup);

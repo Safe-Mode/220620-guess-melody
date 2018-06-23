@@ -23,6 +23,7 @@ export const showResult = (rivals, result) => {
     statistics.push(it.scores);
   });
 
+  statistics.push(playerScores);
   statistics.sort((left, right) => right - left);
 
   const playerPosition = statistics.indexOf(playerScores) + 1;
