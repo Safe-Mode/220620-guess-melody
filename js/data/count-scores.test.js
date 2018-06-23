@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import countScores from './../count-scores.js';
+import {countScores} from './../game.js';
 import getAnswers from './../get-answers.js';
 
 const getAnswersCopy = (array) => {

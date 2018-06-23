@@ -2,13 +2,17 @@ import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
 import goOverGenre from './genre.js';
 import initialScreen from './welcome.js';
-import resultWinScreen from './result-win.js';
+import goOverResult from './result-win.js';
 import getHeader from './header.js';
 import footerEl from './footer.js';
 import gameData from './data/game-data.js';
 import getCurrentState from './get-current-state.js';
 import {err} from './game.js';
 import {isFinished} from './game';
+import rivals from './rivals.js';
+import player from './player.js';
+import {updatePlayer} from './game.js';
+import {showResult} from './game.js';
 
 export default (questions, state) => {
   if (!state.notes) {
@@ -67,13 +71,19 @@ export default (questions, state) => {
 
   answerList.addEventListener(`change`, ({target}) => {
     let currentState = getCurrentState();
+    let playerAnswer = {time: 30};
 
     if (gameData[state.question].answer !== target.value) {
       err(currentState);
+      playerAnswer.value = false;
+    } else {
+      playerAnswer.value = true;
     }
 
+    updatePlayer(player, playerAnswer);
+
     if (isFinished(questions, currentState)) {
-      render(resultWinScreen);
+      goOverResult(showResult(rivals, player));
     } else {
       goOverGenre(Object.assign(gameData), currentState);
     }

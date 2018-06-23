@@ -2,31 +2,40 @@ import tryOverScreen from './result-try-over.js';
 import render from './render-screen.js';
 
 const PERCENT_RATIO = 100;
-const MAX_ANSWERS_LENGTH = 10;
 const FAST_ANSWER_LIMIT = 30;
 
+export const countScores = (answers) => {
+  return answers.reduce((scores, it) => {
+    if (it.value) {
+      const itScore = (it.time < FAST_ANSWER_LIMIT) ? 2 : 1;
+      return scores + itScore;
+    } else {
+      return scores - 2;
+    }
+  }, 0);
+};
+
 export const showResult = (rivals, result) => {
-  if (result.time === 0) {
-    return `Время вышло! Вы не успели отгадать все мелодии`;
-  }
-
-  if (result.notes === 0) {
-    return `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
-  }
-
   const statistics = [];
+  const playerScores = countScores(result.answers);
 
   rivals.forEach((it) => {
     statistics.push(it.scores);
   });
 
-  statistics.push(result.scores);
   statistics.sort((left, right) => right - left);
 
-  const playerPosition = statistics.indexOf(result.scores) + 1;
+  const playerPosition = statistics.indexOf(playerScores) + 1;
   const percent = (statistics.length - playerPosition) * PERCENT_RATIO / statistics.length;
 
-  return `Вы заняли ${playerPosition} место из ${statistics.length} игроков. Это лучше, чем у ${percent}% игроков`;
+  return {
+    scores: playerScores,
+    position: playerPosition,
+    rivalsCount: statistics.length,
+    percent,
+    fast: result.fast,
+    fails: result.fails
+  };
 };
 
 export const getTimer = (time) => {
@@ -45,21 +54,6 @@ export const getTimer = (time) => {
   };
 };
 
-export const countScores = (answers) => {
-  if (answers.length < MAX_ANSWERS_LENGTH) {
-    return -1;
-  }
-
-  return answers.reduce((scores, it) => {
-    if (it.value) {
-      const itScore = (it.time < FAST_ANSWER_LIMIT) ? 2 : 1;
-      return scores + itScore;
-    } else {
-      return scores - 2;
-    }
-  }, 0);
-};
-
 export const canContinue = (state) => state.notes - 1 > 0;
 
 export const err = (state) => {
@@ -72,3 +66,9 @@ export const err = (state) => {
 };
 
 export const isFinished = (questions, state) => state.question === questions.length;
+
+export const updatePlayer = (player, answer) => {
+  player.answers.push(answer);
+  player.fast = (answer.time < 30) ? ++player.fast : player.fast;
+  player.fails = (!answer.value) ? ++player.fails : player.fails;
+};

@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import showResult from './../show-result.js';
+import {showResult} from './../game.js';
 import rivals from './../rivals.js';
 import player from './../player.js';
 
