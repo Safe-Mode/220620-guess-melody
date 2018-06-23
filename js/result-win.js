@@ -15,8 +15,6 @@ const markup = `
   </section>`;
 
 const resultScreen = getElementFromTemplate(markup);
-console.log(resultScreen);
-
 const replayBtnEl = resultScreen.querySelector(`.main-replay`);
 
 replayBtnEl.addEventListener(`click`, (evt) => {

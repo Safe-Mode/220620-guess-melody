@@ -2,18 +2,21 @@ import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
 import goOverGenre from './genre.js';
 import initialScreen from './welcome.js';
+import resultWinScreen from './result-win.js';
 import getHeader from './header.js';
 import footerEl from './footer.js';
 import gameData from './data/game-data.js';
 import getCurrentState from './get-current-state.js';
 import {err} from './game.js';
+import {isFinished} from './game';
 
 export default (questions, state) => {
+  if (!state.notes) {
+    return false;
+  }
+
   state = Object.assign({}, state);
-  console.log(questions);
-  
-  console.log(state);
-  
+
   const markup =
     `<section class="main main--level main--level-artist">
       <div class="main-wrap">
@@ -63,13 +66,17 @@ export default (questions, state) => {
   const playAgainEl = headerEl.querySelector(`.play-again`);
 
   answerList.addEventListener(`change`, ({target}) => {
-    const currentState = getCurrentState();
+    let currentState = getCurrentState();
 
     if (gameData[state.question].answer !== target.value) {
       err(currentState);
     }
 
-    goOverGenre(Object.assign(gameData), currentState);
+    if (isFinished(questions, currentState)) {
+      render(resultWinScreen);
+    } else {
+      goOverGenre(Object.assign(gameData), currentState);
+    }
   });
 
   playAgainEl.addEventListener(`click`, (evt) => {
@@ -82,6 +89,7 @@ export default (questions, state) => {
   artistScreen.appendChild(headerEl);
   artistScreen.appendChild(artistMain);
   artistScreen.appendChild(footerEl);
-
   render(artistScreen);
+
+  return state;
 };

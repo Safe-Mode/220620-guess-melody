@@ -1,3 +1,6 @@
+import tryOverScreen from './result-try-over.js';
+import render from './render-screen.js';
+
 const PERCENT_RATIO = 100;
 const MAX_ANSWERS_LENGTH = 10;
 const FAST_ANSWER_LIMIT = 30;
@@ -61,9 +64,11 @@ export const canContinue = (state) => state.notes - 1 > 0;
 
 export const err = (state) => {
   if (!canContinue(state)) {
-    throw new Error(`You can't continue anymore`);
+    render(tryOverScreen);
   }
 
   state.notes = state.notes - 1;
-  return state.notes;
+  return state;
 };
+
+export const isFinished = (questions, state) => state.question === questions.length;

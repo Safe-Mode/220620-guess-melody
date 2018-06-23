@@ -11,8 +11,13 @@ import getCurrentState from './get-current-state.js';
 import gameData from './data/game-data.js';
 import {err} from './game.js';
 import goOverArtist from './artist.js';
+import {isFinished} from './game';
 
 export default (questions, state) => {
+  if (!state.notes) {
+    return false;
+  }
+
   state = Object.assign({}, state);
 
   const markup =
@@ -111,7 +116,7 @@ export default (questions, state) => {
   formEl.addEventListener(`submit`, (evt) => {
     evt.preventDefault();
 
-    const currentState = getCurrentState();
+    let currentState = getCurrentState();
     let answers = [];
 
     for (const answer of answersEl) {
@@ -119,19 +124,20 @@ export default (questions, state) => {
         answers.push(answer.parentElement.querySelector(`audio`).src);
       }
     }
-    
-    console.log(questions[state.question]);
 
-    if (answers.every((it, i) => {
+    if (!answers.every((it, i) => {
       if (answers.length === questions[state.question].answer.length) {
         return it === questions[state.question].answer[i];
       }
 
       return false;
     })) {
+      err(currentState);
+    }
+
+    if (isFinished(questions, currentState)) {
       render(resultWinScreen);
     } else {
-      err(currentState);
       goOverArtist(Object.assign(gameData), currentState);
     }
   });
@@ -146,6 +152,7 @@ export default (questions, state) => {
   genreScreen.appendChild(headerEl);
   genreScreen.appendChild(genreMain);
   genreScreen.appendChild(footerEl);
-
   render(genreScreen);
+
+  return state;
 };
