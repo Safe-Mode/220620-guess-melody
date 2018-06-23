@@ -1,3 +1,4 @@
+import {INITIAL_STATE} from './data/data.js';
 import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
 import goOverResult from './result-win.js';
@@ -20,17 +21,17 @@ export default (questions, state) => {
     return false;
   }
 
-  state = Object.assign({}, state);
+  let newState = Object.assign({}, state);
 
   const markup =
     `<section class="main main--level main--level-genre">
       <div class="main-wrap">
-        <h2 class="title">${questions[state.question].title}</h2>
+        <h2 class="title">${questions[newState.question].title}</h2>
         <form class="genre">
           <div class="genre-answer">
             <div class="player-wrapper">
               <div class="player">
-                <audio src=${questions[state.question].options[0]}></audio>
+                <audio src=${questions[newState.question].options[0]}></audio>
                 <button class="player-control player-control--pause"></button>
                 <div class="player-track">
                   <span class="player-status"></span>
@@ -44,7 +45,7 @@ export default (questions, state) => {
           <div class="genre-answer">
             <div class="player-wrapper">
               <div class="player">
-                <audio src=${questions[state.question].options[1]}></audio>
+                <audio src=${questions[newState.question].options[1]}></audio>
                 <button class="player-control player-control--play"></button>
                 <div class="player-track">
                   <span class="player-status"></span>
@@ -58,7 +59,7 @@ export default (questions, state) => {
           <div class="genre-answer">
             <div class="player-wrapper">
               <div class="player">
-                <audio src=${questions[state.question].options[2]}></audio>
+                <audio src=${questions[newState.question].options[2]}></audio>
                 <button class="player-control player-control--play"></button>
                 <div class="player-track">
                   <span class="player-status"></span>
@@ -72,7 +73,7 @@ export default (questions, state) => {
           <div class="genre-answer">
             <div class="player-wrapper">
               <div class="player">
-                <audio src=${questions[state.question].options[3]}></audio>
+                <audio src=${questions[newState.question].options[3]}></audio>
                 <button class="player-control player-control--play"></button>
                 <div class="player-track">
                   <span class="player-status"></span>
@@ -89,7 +90,7 @@ export default (questions, state) => {
     </section>`;
 
   const genreMain = getElementFromTemplate(markup);
-  const headerEl = getHeader(state);
+  const headerEl = getHeader(newState);
   const formEl = genreMain.querySelector(`.genre`);
   const sendBtnEl = genreMain.querySelector(`.genre-answer-send`);
   const answersEl = genreMain.querySelectorAll(`input[name="answer"]`);
@@ -129,8 +130,8 @@ export default (questions, state) => {
     }
 
     if (!answers.every((it, i) => {
-      if (answers.length === questions[state.question].answer.length) {
-        return it === questions[state.question].answer[i];
+      if (answers.length === questions[newState.question].answer.length) {
+        return it === questions[newState.question].answer[i];
       }
 
       return false;
@@ -152,6 +153,7 @@ export default (questions, state) => {
 
   playAgainEl.addEventListener(`click`, (evt) => {
     evt.preventDefault();
+    state = Object.assign(state, INITIAL_STATE);
     render(initialScreen);
   });
 
@@ -162,5 +164,5 @@ export default (questions, state) => {
   genreScreen.appendChild(footerEl);
   render(genreScreen);
 
-  return state;
+  return newState;
 };

@@ -1,3 +1,5 @@
+import {INITIAL_STATE} from './data/data.js';
+import getCurrentState from './get-current-state.js';
 import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
 import welcomeScreen from './welcome.js';
@@ -16,9 +18,12 @@ export default (result) => {
     </section>`;
   const resultScreen = getElementFromTemplate(markup);
   const replayBtnEl = resultScreen.querySelector(`.main-replay`);
+  let state = getCurrentState();
 
   replayBtnEl.addEventListener(`click`, (evt) => {
     evt.preventDefault();
+
+    Object.assign(state, INITIAL_STATE);
     render(welcomeScreen);
   });
 
