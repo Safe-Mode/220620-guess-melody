@@ -6,3 +6,9 @@ export const INITIAL_STATE = {
     seconds: `00`
   }
 };
+
+export const INITIAL_PLAYER = {
+  answers: [],
+  fast: 0,
+  fails: 0
+};

@@ -1,5 +1,4 @@
-import tryOverScreen from './result-try-over.js';
-import render from './render-screen.js';
+import goOverResult from './result-try-over.js';
 
 const PERCENT_RATIO = 100;
 const FAST_ANSWER_LIMIT = 30;
@@ -59,7 +58,7 @@ export const canContinue = (state) => state.notes - 1 > 0;
 
 export const err = (state) => {
   if (!canContinue(state)) {
-    render(tryOverScreen);
+    goOverResult();
   }
 
   state.notes = state.notes - 1;

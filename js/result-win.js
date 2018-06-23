@@ -1,4 +1,6 @@
 import {INITIAL_STATE} from './data/data.js';
+import {INITIAL_PLAYER} from './data/data';
+import player from './player.js';
 import getCurrentState from './get-current-state.js';
 import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
@@ -24,6 +26,7 @@ export default (result) => {
     evt.preventDefault();
 
     Object.assign(state, INITIAL_STATE);
+    Object.assign(player, INITIAL_PLAYER);
     render(welcomeScreen);
   });
 

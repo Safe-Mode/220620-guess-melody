@@ -1,4 +1,5 @@
 import {INITIAL_STATE} from './data/data.js';
+import {INITIAL_PLAYER} from './data/data';
 import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
 import goOverGenre from './genre.js';
@@ -92,7 +93,9 @@ export default (questions, state) => {
 
   playAgainEl.addEventListener(`click`, (evt) => {
     evt.preventDefault();
+
     state = Object.assign(state, INITIAL_STATE);
+    Object.assign(player, INITIAL_PLAYER);
     render(initialScreen);
   });
 
