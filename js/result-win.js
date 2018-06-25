@@ -1,10 +1,10 @@
-import {INITIAL_STATE} from './data/data.js';
-import {INITIAL_PLAYER} from './data/data';
-import player from './player.js';
+import {INITIAL_STATE, INITIAL_PLAYER} from './data/data';
+import player from './player';
 import getCurrentState from './get-current-state.js';
 import getElementFromTemplate from './get-element-from-template.js';
 import render from './render-screen.js';
 import welcomeScreen from './welcome.js';
+import {deepClone} from './util';
 
 export default (result) => {
   const markup =
@@ -20,13 +20,13 @@ export default (result) => {
     </section>`;
   const resultScreen = getElementFromTemplate(markup);
   const replayBtnEl = resultScreen.querySelector(`.main-replay`);
-  let state = getCurrentState();
+  const state = getCurrentState();
 
   replayBtnEl.addEventListener(`click`, (evt) => {
     evt.preventDefault();
 
-    Object.assign(state, INITIAL_STATE);
-    Object.assign(player, INITIAL_PLAYER);
+    Object.assign(state, deepClone(INITIAL_STATE));
+    Object.assign(player, deepClone(INITIAL_PLAYER));
     render(welcomeScreen);
   });
 

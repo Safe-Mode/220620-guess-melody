@@ -1,3 +1,5 @@
+import {deepFreeze} from '../util';
+
 export const INITIAL_STATE = {
   question: 0,
   notes: 3,
@@ -7,8 +9,8 @@ export const INITIAL_STATE = {
   }
 };
 
-export const INITIAL_PLAYER = {
+export const INITIAL_PLAYER = deepFreeze({
   answers: [],
   fast: 0,
   fails: 0
-};
+});

@@ -119,9 +119,9 @@ export default (questions, state) => {
   formEl.addEventListener(`submit`, (evt) => {
     evt.preventDefault();
 
-    let currentState = getCurrentState();
-    let playerAnswer = {time: 30};
-    let answers = [];
+    const currentState = getCurrentState();
+    const playerAnswer = {time: 30};
+    const answers = [];
 
     for (const answer of answersEl) {
       if (answer.checked) {
@@ -153,7 +153,8 @@ export default (questions, state) => {
 
   playAgainEl.addEventListener(`click`, (evt) => {
     evt.preventDefault();
-    state = Object.assign(state, INITIAL_STATE);
+
+    Object.assign(state, INITIAL_STATE);
     Object.assign(player, INITIAL_PLAYER);
     render(initialScreen);
   });

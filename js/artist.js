@@ -72,8 +72,8 @@ export default (questions, state) => {
   const playAgainEl = headerEl.querySelector(`.play-again`);
 
   answerList.addEventListener(`change`, ({target}) => {
-    let currentState = getCurrentState();
-    let playerAnswer = {time: 30};
+    const currentState = getCurrentState();
+    const playerAnswer = {time: 30};
 
     if (gameData[newState.question].answer !== target.value) {
       err(currentState);
@@ -94,7 +94,7 @@ export default (questions, state) => {
   playAgainEl.addEventListener(`click`, (evt) => {
     evt.preventDefault();
 
-    state = Object.assign(state, INITIAL_STATE);
+    Object.assign(state, INITIAL_STATE);
     Object.assign(player, INITIAL_PLAYER);
     render(initialScreen);
   });

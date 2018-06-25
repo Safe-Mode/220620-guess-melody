@@ -24,3 +24,20 @@ export const deepFreeze = (obj) => {
   // Заморозить сам объект obj (ничего не произойдёт, если он уже заморожен)
   return Object.freeze(obj);
 };
+
+export const deepClone = (obj) => {
+  let clone = (obj.constructor === Array.prototype.constructor) ? [] : {};
+
+  for (let i in obj) {
+    if (obj[i].constructor === Array.prototype.constructor) {
+      clone = [];
+      clone[i] = deepClone(obj[i]);
+    } else if (obj[i] !== null && typeof (obj[i]) === `object`) {
+      clone[i] = deepClone(obj[i]);
+    } else {
+      clone[i] = obj[i];
+    }
+  }
+
+  return clone;
+};

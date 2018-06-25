@@ -1,4 +1,4 @@
-import goOverResult from './result-try-over.js';
+import goOverResult from './result-try-over';
 
 const PERCENT_RATIO = 100;
 const FAST_ANSWER_LIMIT = 30;
