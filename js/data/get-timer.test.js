@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import getTimer from './../get-timer.js';
+import {getTimer} from './../game.js';
 
 describe(`Check timer function`, () => {
   it(`Timer returns object`, () => {

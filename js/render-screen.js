@@ -1,6 +1,5 @@
-const appEl = document.querySelector(`.app`);
-
-export default (screen) => {
-  const mainEl = appEl.querySelector(`.main`);
-  appEl.replaceChild(screen, mainEl);
+export default (element) => {
+  const appEl = document.querySelector(`.app`);
+  appEl.innerHTML = ``;
+  appEl.insertBefore(element, appEl.firstChild);
 };

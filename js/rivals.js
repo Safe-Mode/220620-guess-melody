@@ -1,5 +1,5 @@
 import {getRandomInt} from './util.js';
-import countScores from './count-scores.js';
+import {countScores} from './game.js';
 import getAnswers from './get-answers.js';
 
 const GAME_TIME = 300;
